@@ -20,8 +20,65 @@ The dataset used in this project is available [here](https://www.kaggle.com/mlg-
 data = pd.read_csv('creditcard.csv')
 data.head()
 ```
-  Inorder to check number of rows and columns in our dataset
-  ```ruby
-df.shape
+Inorder to check number of rows and columns in our dataset
+```ruby
+print(data.shape[0],data.shape[1])
 ```
-  
+To display the columns<br>
+```ruby
+print(data.shape[0],data.shape[1])
+```  
+```ruby
+data.info()
+``` 
+```ruby
+data.isnull().sum().max()
+```
+Deteremine the number of fradulent cases in dataset<br>
+```ruby
+print('Normal Transactions count:',data['Class'].value_counts().values[0])
+print('Fraudulent Transactions count:',data['Class'].value_counts().values[1])
+```
+```ruby
+print('Normal transactions are',(data['Class'].value_counts().values[0]/data.shape[0])*100,'% of the dataset')
+print('Fraudulent transactions are',(data['Class'].value_counts().values[1]/data.shape[0])*100,'% of the dataset')
+```
+##Exploratory analysis<br>
+###Visualization of Transaction class distribution<br>
+```ruby
+count_class=pd.value_counts(data['Class'],sort=True)
+count_class.plot(kind='bar',rot=0)
+plt.title('Transaction class distribution')
+LABELS=['Normal','Fraud']
+plt.xticks(range(2),LABELS)
+plt.xlabel('Class')
+plt.ylabel('Frequency')
+```
+###Visualization of Amount and Time Distribution<br>
+```ruby
+fig, ax = plt.subplots(1, 2, figsize=(18,4))
+
+amount_val = data['Amount'].values
+time_val = data['Time'].values
+
+sns.distplot(amount_val, ax=ax[0], color='r')
+ax[0].set_title('Distribution of Transaction Amount', fontsize=14)
+ax[0].set_xlim([min(amount_val), max(amount_val)])
+
+sns.distplot(time_val, ax=ax[1], color='b')
+ax[1].set_title('Distribution of Transaction Time', fontsize=14)
+ax[1].set_xlim([min(time_val), max(time_val)])
+```
+###Visualization of Amount and Time by class<br>
+```ruby
+sns.set_style("whitegrid")
+sns.FacetGrid(data, hue="Class", size = 6).map(plt.scatter, "Time", "Amount").add_legend()
+plt.show()
+```
+From the above graphs,we can conclude that the fraud transactions are evenly distributed throughout time<br>
+###Get sense of the fraud and normal transaction amount<br>
+```ruby
+fraud=data[data['Class']==1]
+normal=data[data['Class']==0]
+fraud.Amount.describe()
+```
