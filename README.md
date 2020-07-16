@@ -43,8 +43,8 @@ print('Fraudulent Transactions count:',data['Class'].value_counts().values[1])
 print('Normal transactions are',(data['Class'].value_counts().values[0]/data.shape[0])*100,'% of the dataset')
 print('Fraudulent transactions are',(data['Class'].value_counts().values[1]/data.shape[0])*100,'% of the dataset')
 ```
-##Exploratory analysis<br>
-###Visualization of Transaction class distribution<br>
+## Exploratory analysis<br>
+### Visualization of Transaction class distribution<br>
 ```ruby
 count_class=pd.value_counts(data['Class'],sort=True)
 count_class.plot(kind='bar',rot=0)
@@ -54,7 +54,7 @@ plt.xticks(range(2),LABELS)
 plt.xlabel('Class')
 plt.ylabel('Frequency')
 ```
-###Visualization of Amount and Time Distribution<br>
+### Visualization of Amount and Time Distribution<br>
 ```ruby
 fig, ax = plt.subplots(1, 2, figsize=(18,4))
 
@@ -69,14 +69,14 @@ sns.distplot(time_val, ax=ax[1], color='b')
 ax[1].set_title('Distribution of Transaction Time', fontsize=14)
 ax[1].set_xlim([min(time_val), max(time_val)])
 ```
-###Visualization of Amount and Time by class<br>
+### Visualization of Amount and Time by class<br>
 ```ruby
 sns.set_style("whitegrid")
 sns.FacetGrid(data, hue="Class", size = 6).map(plt.scatter, "Time", "Amount").add_legend()
 plt.show()
 ```
 From the above graphs,we can conclude that the fraud transactions are evenly distributed throughout time<br>
-###Get sense of the fraud and normal transaction amount<br>
+### Get sense of the fraud and normal transaction amount<br>
 ```ruby
 fraud=data[data['Class']==1]
 normal=data[data['Class']==0]
