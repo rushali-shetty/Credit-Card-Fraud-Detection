@@ -161,3 +161,129 @@ plt.show()
 ```
 ## BoxPlots<br>
 We will use boxplots to have a better understanding of the distribution of these features in fradulent and non fradulent transactions.<br>
+### Visualization of correlations using boxplot<br>
+```ruby
+f,ax=plt.subplots(2,2,figsize=(24,14))
+f.suptitle('Features with high negative correlation',size=20)
+sns.boxplot(x='Class',y='V10',data=new_df,ax=ax[0,0])
+sns.boxplot(x='Class',y='V12',data=new_df,ax=ax[0,1])
+sns.boxplot(x='Class',y='V14',data=new_df,ax=ax[1,0])
+sns.boxplot(x='Class',y='V17',data=new_df,ax=ax[1,1])
+```
+```ruby
+f,ax=plt.subplots(2,2,figsize=(24,14))
+f.suptitle('Features with high positive correlation',size=20)
+sns.boxplot(x='Class',y='V2',data=new_df,ax=ax[0,0])
+sns.boxplot(x='Class',y='V4',data=new_df,ax=ax[0,1])
+sns.boxplot(x='Class',y='V11',data=new_df,ax=ax[1,0])
+sns.boxplot(x='Class',y='V19',data=new_df,ax=ax[1,1])
+```
+Remove the extreme outliers from features that have a high correlation with our classes.<br>
+```ruby
+v14_fraud = new_df['V14'].loc[new_df['Class'] == 1].values
+q25, q75 = np.percentile(v14_fraud, 25), np.percentile(v14_fraud, 75)
+v14_iqr = q75 - q25
+v14_cut_off = v14_iqr * 1.5
+v14_lower, v14_upper = q25 - v14_cut_off, q75 + v14_cut_off
+new_df = new_df.drop(new_df[(new_df['V14'] > v14_upper) | (new_df['V14'] < v14_lower)].index)
+
+
+v12_fraud = new_df['V12'].loc[new_df['Class'] == 1].values
+q25, q75 = np.percentile(v12_fraud, 25), np.percentile(v12_fraud, 75)
+v12_iqr = q75 - q25
+
+v12_cut_off = v12_iqr * 1.5
+v12_lower, v12_upper = q25 - v12_cut_off, q75 + v12_cut_off
+new_df = new_df.drop(new_df[(new_df['V12'] > v12_upper) | (new_df['V12'] < v12_lower)].index)
+
+
+
+v10_fraud = new_df['V10'].loc[new_df['Class'] == 1].values
+q25, q75 = np.percentile(v10_fraud, 25), np.percentile(v10_fraud, 75)
+v10_iqr = q75 - q25
+
+v10_cut_off = v10_iqr * 1.5
+v10_lower, v10_upper = q25 - v10_cut_off, q75 + v10_cut_off
+
+new_df = new_df.drop(new_df[(new_df['V10'] > v10_upper) | (new_df['V10'] < v10_lower)].index)
+```
+# Classifier<br>
+An algorithm that maps the input data to a specific category.Classification is a type of supervised learning. The training data is used to make sure the machine recognizes patterns in the data and the test data is used only to access performance of model.<br>
+```ruby
+X=new_df.drop('Class',axis=1) 
+y=new_df['Class']
+```
+```ruby
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train = X_train.values
+X_test = X_test.values
+y_train = y_train.values
+y_test = y_test.values
+```
+## Model Architecture
+
+ ### Import the required classifiers
+```ruby
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+```
+#### Logistic Regression<br>
+```ruby
+logmodel = LogisticRegression()
+logmodel.fit(X_train,y_train)
+```
+#### Support Vector Classifier<br>
+```ruby
+svc=SVC()
+svc.fit(X_train,y_train)
+```
+#### K-nearest neighbors<br>
+```ruby
+knn=KNeighborsClassifier()
+knn.fit(X_train,y_train)
+```
+#### Random Forest Classifier<br>
+```ruby
+RDF_Classifier=RandomForestClassifier(random_state=0)
+RDF_Classifier.fit(X_train,y_train)
+```
+#### DecisionTreeClassifier<br>
+```ruby
+DecisionTreeClassifier= DecisionTreeClassifier()
+DecisionTreeClassifier.fit(X_train,y_train)
+```
+### Model Evaluation and Prediction<br>
+ ```ruby
+models_list=[('Logistic Regression',logmodel),('SVC',svc),('KNeighborsClassifier',knn),('RFC',RDF_Classifier),('DecisionTreeClassifier',DecisionTreeClassifier)]
+models=[j for j in models_list]
+print()
+#print('===========================Model Evaluation Results================================')
+for i,v in models:
+      print('==========================={}=========================================='.format(i))
+      a=cross_val_score(v, X_train, y_train, cv=5)
+      print('Cross validation score=',a.mean())
+```
+### Test Models
+```ruby
+models_list=[('Logistic Regression',logmodel),('SVC',svc),('KNeighborsClassifier',knn),('RFC',RDF_Classifier),('DecisionTreeClassifier',DecisionTreeClassifier)]
+models=[j for j in models_list]
+print()
+print('===========================Model Test Results================================')
+for i,v in models:
+      print('==========================={}=========================================='.format(i))
+      pred_test = v.predict(X_test)
+      print('Accuracy =',accuracy_score(y_test,pred_test))
+      print('Confusion Matrix')
+      print(confusion_matrix(y_test,pred_test))
+      print('Classification Report')
+      print(classification_report(y_test,pred_test))
+```
