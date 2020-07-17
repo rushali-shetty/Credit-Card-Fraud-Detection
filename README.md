@@ -1,14 +1,14 @@
 # Introduction
 The objective in this project is to build machine learning models to classify or identify fraudulent card transactions from a given card transactions data, thus seeking to minimize the risk and loss of the business. The biggest challenge is to create a model that is very sensitive to fraud, since most transactions are legitimate, making detection difficult.<br>
 <br>
-The steps involved in the project are:
-### 1.Read and understand the data<br>
+The steps involved in the project are:<br>
+1.Data Description<br>
 2. Exploratory Analysis.<br>
 3. Normalization of data<br>
 4. Visualization of correlations<br>
 5. Model Architecture-(Logistic Regression,SupportVectorClassifier,KNeighborsClassifier,Random Forest Classifier,DecisionTreeClassifier)<br>
 6. Model Evaluation and Prediction<br>
-## Data Description<br>
+## 1.Data Description<br>
 The features are scaled and the names of the features are not shown due to privacy reasons.Features V1, V2, ... V28 are the principal components obtained with PCA, the only features which have not been transformed with PCA are 'Time' and 'Value'. The variable 'Time' contains the seconds between each transaction and the first transaction in the data set. The 'Amount' variable refers to the amount of the transaction. Feature 'Class' is the target variable with value 1 in case of fraud and 0 otherwise.<br>
 The following are the columns:<br>
 **Time:** Number of seconds elapsed between this transaction and the first transaction in the data set.<br>
@@ -46,7 +46,7 @@ data.info()
 ```ruby
 data.isnull().sum().max()
 ```
-Deteremine the number of fradulent cases in dataset<br>
+Determine the number of fradulent cases in dataset<br>
 ```ruby
 print('Normal Transactions count:',data['Class'].value_counts().values[0])
 print('Fraudulent Transactions count:',data['Class'].value_counts().values[1])
@@ -55,7 +55,7 @@ print('Fraudulent Transactions count:',data['Class'].value_counts().values[1])
 print('Normal transactions are',(data['Class'].value_counts().values[0]/data.shape[0])*100,'% of the dataset')
 print('Fraudulent transactions are',(data['Class'].value_counts().values[1]/data.shape[0])*100,'% of the dataset')
 ```
-## Exploratory analysis<br>
+## 2.Exploratory analysis<br>
 ### Visualization of Transaction class distribution<br>
 ```ruby
 count_class=pd.value_counts(data['Class'],sort=True)
@@ -101,7 +101,7 @@ fraud.Amount.describe()
 ```ruby
 normal.Amount.describe()
 ```
-# Normalization of data
+## 3.Normalization of data
 Scaling is done to normalise the data within a particular range.<br>
 Since most of our data has already been scaled we should scale the columns that are left to scale (Amount and Time).<br>
 RobustScaler reduces the influence of outliers.<br>
@@ -124,7 +124,7 @@ data.drop(['scaled_amount', 'scaled_time'], axis=1, inplace=True)
 data.insert(0, 'scaled_amount', scaled_amount)
 data.insert(1, 'scaled_time', scaled_time)
 ```
-Normalization is a process by which we scale values to be between specified limits, usually -1 to 1 or 0 to 1. This process is important because our machine learning models are heavily affected by differences in number size. The major difference will cause massive inaccuracies in our model. Normalization helps us to eliminate these sources of error rather than having it propagate throughout our analysis.<br>
+**Normalization** is a process by which we scale values to be between specified limits, usually -1 to 1 or 0 to 1. This process is important because our machine learning models are heavily affected by differences in number size. The major difference will cause massive inaccuracies in our model. Normalization helps us to eliminate these sources of error rather than having it propagate throughout our analysis.<br>
 ```ruby
 data = data.sample(frac=1)
 
@@ -146,6 +146,7 @@ plt.xticks(range(2),LABELS)
 plt.xlabel('Class')
 ```
 <img src="IMAGES/a5.png" width="500" height="300"><br>
+## 4.Visualization of Correlation
 Correlation matrix is used to check strong corellation between different variables in our dataset which helps us to determine strong linear relationships and also tells us which features are important for overall classification.<br>
 ```ruby
 corrmat=data.corr()
@@ -156,7 +157,7 @@ plt.show()
 ```
 <img src="IMAGES/a6.png" width="800" height="500"><br>
 From the above graph,we have a lot of values very close to 0.There is no strong relationship between most of the v parameters(i.e from v1 to v28).there is variation in relationship between different parameters with the class.The lighter ones have the positive correlation whereas the darker ones have negative correlation.Thus, we can conclude that V10,V12,V14 and V17 are highly negatively correlated to class and V2,V4,V11 and V19 are highly positively correalted to class.<br>
-# Data Cleansing<br>
+## Data Cleansing<br>
 We have identified the input features and the target variable so we will separate them into two objects ‘X’ and ‘y’ and draw the histogram of all the input features to see the data at a glance. The target variable which we would like to predict, is the 'Class' variable.<br>
 ### Define X and y variables<br>
 ```ruby
@@ -171,7 +172,7 @@ x.hist(figsize = (20, 20))
 plt.show()
 ```
 <img src="IMAGES/a7.png" width="900" height="600"><br>
-## BoxPlots<br>
+**BoxPlots**<br>
 We will use boxplots to have a better understanding of the distribution of these features in fradulent and non fradulent transactions.<br>
 ### Visualization of correlations using boxplot<br>
 ```ruby
@@ -221,7 +222,7 @@ v10_lower, v10_upper = q25 - v10_cut_off, q75 + v10_cut_off
 
 new_df = new_df.drop(new_df[(new_df['V10'] > v10_upper) | (new_df['V10'] < v10_lower)].index)
 ```
-# Classifier<br>
+**Classifier**<br>
 An algorithm that maps the input data to a specific category.Classification is a type of supervised learning. The training data is used to make sure the machine recognizes patterns in the data and the test data is used only to access performance of model.<br>
 ```ruby
 X=new_df.drop('Class',axis=1) 
@@ -237,9 +238,9 @@ X_test = X_test.values
 y_train = y_train.values
 y_test = y_test.values
 ```
-## Model Architecture
+## 5.Model Architecture<br>
 
- ### Import the required classifiers
+Import the required classifiers<br>
 ```ruby
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
@@ -276,7 +277,7 @@ RDF_Classifier.fit(X_train,y_train)
 DecisionTreeClassifier= DecisionTreeClassifier()
 DecisionTreeClassifier.fit(X_train,y_train)
 ```
-### Model Evaluation and Prediction<br>
+## 6.Model Evaluation and Prediction<br>
  ```ruby
 models_list=[('Logistic Regression',logmodel),('SVC',svc),('KNeighborsClassifier',knn),('RFC',RDF_Classifier),('DecisionTreeClassifier',DecisionTreeClassifier)]
 models=[j for j in models_list]
@@ -302,3 +303,4 @@ for i,v in models:
       print('Classification Report')
       print(classification_report(y_test,pred_test))
 ```
+**Conclusion:** The highest accuracy is obtained by using Logistic Regression(97%) and RandomForestClassifier(96%).
