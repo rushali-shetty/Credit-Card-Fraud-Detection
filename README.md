@@ -78,7 +78,7 @@ sns.set_style("whitegrid")
 sns.FacetGrid(data, hue="Class", size = 6).map(plt.scatter, "Time", "Amount").add_legend()
 plt.show()
 ```
-<img src="IMAGES/a4.png" width="900" height="300"><br>
+<img src="IMAGES/a4.png" width="500" height="300"><br>
 From the above graphs,we can conclude that the fraud transactions are evenly distributed throughout time<br>
 ### Get sense of the fraud and normal transaction amount<br>
 ```ruby
@@ -133,7 +133,7 @@ LABELS=['Normal','Fraud']
 plt.xticks(range(2),LABELS)
 plt.xlabel('Class')
 ```
-<img src="IMAGES/a5.png" width="900" height="300"><br>
+<img src="IMAGES/a5.png" width="500" height="300"><br>
 Correlation matrix is used to check strong corellation between different variables in our dataset which helps us to determine strong linear relationships and also tells us which features are important for overall classification.<br>
 ```ruby
 corrmat=data.corr()
@@ -142,7 +142,7 @@ sns.heatmap(corrmat,vmax=0.8,square=True)
 plt.title('Heatmap of Correlation')
 plt.show()
 ```
-<img src="IMAGES/a6.png" width="900" height="300"><br>
+<img src="IMAGES/a6.png" width="800" height="500"><br>
 From the above graph,we have a lot of values very close to 0.There is no strong relationship between most of the v parameters(i.e from v1 to v28).there is variation in relationship between different parameters with the class.The lighter ones have the positive correlation whereas the darker ones have negative correlation.Thus, we can conclude that V10,V12,V14 and V17 are highly negatively correlated to class and V2,V4,V11 and V19 are highly positively correalted to class.<br>
 # Data Cleansing<br>
 We have identified the input features and the target variable so we will separate them into two objects ‘X’ and ‘y’ and draw the histogram of all the input features to see the data at a glance. The target variable which we would like to predict, is the 'Class' variable.<br>
