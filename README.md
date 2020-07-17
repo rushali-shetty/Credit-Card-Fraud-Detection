@@ -110,7 +110,7 @@ normal.Amount.describe()
 **Normalization** is a scaling technique in which values are shifted and rescaled so that they end up ranging between 0 and 1. It is also known as **Min-Max scaling**.<br>
 Scaling is done to normalise the data within a particular range.<br>
 Since most of our data has already been scaled we should scale the columns that are left to scale (Amount and Time).<br>
-RobustScaler reduces the influence of outliers.<br>
+**RobustScaler** reduces the influence of outliers.<br>
 ```ruby
 from sklearn.preprocessing import StandardScaler,RobustScaler
 
@@ -164,8 +164,8 @@ plt.show()
 <img src="IMAGES/a6.png" width="800" height="500"><br>
 From the above graph,we have a lot of values very close to 0.There is no strong relationship between most of the v parameters(i.e from v1 to v28).there is variation in relationship between different parameters with the class.The lighter ones have the positive correlation whereas the darker ones have negative correlation.Thus, we can conclude that V10,V12,V14 and V17 are highly negatively correlated to class and V2,V4,V11 and V19 are highly positively correalted to class.<br>
 ## Data Cleansing<br>
-We have identified the input features and the target variable so we will separate them into two objects ‘X’ and ‘y’ and draw the histogram of all the input features to see the data at a glance. The target variable which we would like to predict, is the 'Class' variable.<br>
-### Define X and y variables<br>
+We have identified the input features and the target variable so we will separate them into two objects ‘x’ and ‘y’ and draw the histogram of all the input features to see the data at a glance. The target variable which we would like to predict, is the 'Class' variable.<br>
+### Define x and y variables<br>
 ```ruby
 x = data.loc[:, data.columns != 'Class']
 y = data.loc[:, data.columns == 'Class']
@@ -178,9 +178,8 @@ x.hist(figsize = (20, 20))
 plt.show()
 ```
 <img src="IMAGES/a7.png" width="900" height="600"><br>
-**BoxPlots**<br>
-We will use boxplots to have a better understanding of the distribution of these features in fradulent and non fradulent transactions.<br>
 ### Visualization of correlations using boxplot<br>
+We will use boxplots to have a better understanding of the distribution of these features in fradulent and non fradulent transactions which helps to measure data in an interval scale.<br>
 ```ruby
 f,ax=plt.subplots(2,2,figsize=(24,14))
 f.suptitle('Features with high negative correlation',size=20)
