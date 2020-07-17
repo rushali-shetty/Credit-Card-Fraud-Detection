@@ -11,6 +11,7 @@ The steps involved in the project are:<br>
 
 ## 1.Data Description<br>
 The features are scaled and the names of the features are not shown due to privacy reasons.Features V1, V2, ... V28 are the principal components obtained with PCA, the only features which have not been transformed with PCA are 'Time' and 'Value'. The variable 'Time' contains the seconds between each transaction and the first transaction in the data set. The 'Amount' variable refers to the amount of the transaction. Feature 'Class' is the target variable with value 1 in case of fraud and 0 otherwise.<br>
+<br>
 The following are the columns:<br>
 **Time:** Number of seconds elapsed between this transaction and the first transaction in the data set.<br>
 **V1 — V28:** Twenty-eight principal components.<br>
@@ -33,7 +34,7 @@ The dataset used in this project is available [here](https://www.kaggle.com/mlg-
 data = pd.read_csv('creditcard.csv')
 data.head()
 ```
-Inorder to check number of rows and columns in our dataset.<br>
+To check number of rows and columns in our dataset.<br>
 ```ruby
 print(data.shape[0],data.shape[1])
 ```
@@ -49,12 +50,12 @@ To check for any **'NaN'** values in a given dataset.<br>
 ```ruby
 data.isnull().sum().max()
 ```
-Determine the number of fradulent and non-fraudulent cases in dataset<br>
+Determine the number of fradulent and non-fraudulent cases in dataset.<br>
 ```ruby
 print('Normal Transactions count:',data['Class'].value_counts().values[0])
 print('Fraudulent Transactions count:',data['Class'].value_counts().values[1])
 ```
-Determine the percentage of fradulent and non-fraudulent cases in dataset<br>
+Determine the percentage of fradulent and non-fraudulent cases in dataset.<br>
 ```ruby
 print('Normal transactions are',(data['Class'].value_counts().values[0]/data.shape[0])*100,'% of the dataset')
 print('Fraudulent transactions are',(data['Class'].value_counts().values[1]/data.shape[0])*100,'% of the dataset')
@@ -88,7 +89,7 @@ ax[1].set_title('Distribution of Transaction Time', fontsize=14)
 ax[1].set_xlim([min(time_val), max(time_val)])
 ```
 <img src="IMAGES/a2.png" width="900" height="300"><br>
-From the graph above,we will get an idea how skewed the features are distributed.<br>
+From the above graph, we will get an idea how skewed the features are distributed.<br>
 ### Visualization of Amount and Time by class<br>
 ```ruby
 sns.set_style("whitegrid")
@@ -96,7 +97,7 @@ sns.FacetGrid(data, hue="Class", size = 6).map(plt.scatter, "Time", "Amount").ad
 plt.show()
 ```
 <img src="IMAGES/a4.png" width="500" height="300"><br>
-From the above graphs,we can conclude that the fraud transactions are evenly distributed throughout time<br>
+From the above graphs, we can conclude that the fraudulent transactions are evenly distributed throughout time<br>
 ### Get sense of the fraud and normal transaction amount<br>
 ```ruby
 fraud=data[data['Class']==1]
@@ -227,13 +228,13 @@ v10_lower, v10_upper = q25 - v10_cut_off, q75 + v10_cut_off
 
 new_df = new_df.drop(new_df[(new_df['V10'] > v10_upper) | (new_df['V10'] < v10_lower)].index)
 ```
-**Classifier** is a systematic approach to building classification models from an input data set. Examples include decision tree classifiers, rule-based classifiers, neural networks, support vector machines, and naive Bayes classifiers.It is a type of supervised learning.<br>
+**Classifier** is a systematic approach to build classification models from an input data set. Examples include decision tree classifiers, rule-based classifiers, neural networks, support vector machines, and naive Bayes classifiers.It is a type of supervised learning.<br>
 ```ruby
 X=new_df.drop('Class',axis=1) 
 y=new_df['Class']
 ```
 **Training data** is the main and most important data which helps machines to learn and make the predictions and the **Test data** is used to see how well the machine can predict new answers based on its training.<br>
-We create the train and test sets by randomly splitting the data:<br>
+We create the train and test sets by randomly splitting the data.<br>
 ```ruby
 from sklearn.model_selection import train_test_split
 
