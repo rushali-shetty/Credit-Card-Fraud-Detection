@@ -158,7 +158,7 @@ print(y.shape)
 x.hist(figsize = (20, 20))
 plt.show()
 ```
-<img src="IMAGES/a7.png" width="900" height="300"><br>
+<img src="IMAGES/a7.png" width="900" height="600"><br>
 ## BoxPlots<br>
 We will use boxplots to have a better understanding of the distribution of these features in fradulent and non fradulent transactions.<br>
 ### Visualization of correlations using boxplot<br>
@@ -170,7 +170,7 @@ sns.boxplot(x='Class',y='V12',data=new_df,ax=ax[0,1])
 sns.boxplot(x='Class',y='V14',data=new_df,ax=ax[1,0])
 sns.boxplot(x='Class',y='V17',data=new_df,ax=ax[1,1])
 ```
-<img src="IMAGES/a8.png" width="900" height="300"><br>
+<img src="IMAGES/a8.png" width="900" height="500"><br>
 ```ruby
 f,ax=plt.subplots(2,2,figsize=(24,14))
 f.suptitle('Features with high positive correlation',size=20)
@@ -179,7 +179,7 @@ sns.boxplot(x='Class',y='V4',data=new_df,ax=ax[0,1])
 sns.boxplot(x='Class',y='V11',data=new_df,ax=ax[1,0])
 sns.boxplot(x='Class',y='V19',data=new_df,ax=ax[1,1])
 ```
-<img src="IMAGES/a9.png" width="900" height="300"><br>
+<img src="IMAGES/a9.png" width="900" height="500"><br>
 Remove the extreme outliers from features that have a high correlation with our classes.<br>
 ```ruby
 v14_fraud = new_df['V14'].loc[new_df['Class'] == 1].values
