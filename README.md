@@ -2,7 +2,7 @@
 The objective in this project is to build machine learning models to classify or identify fraudulent card transactions from a given card transactions data, thus seeking to minimize the risk and loss of the business. The biggest challenge is to create a model that is very sensitive to fraud, since most transactions are legitimate, making detection difficult.<br>
 <br>
 The steps involved in the project are:<br>
-1.Data Description<br>
+1. Data Description<br>
 2. Exploratory Analysis.<br>
 3. Normalization of data<br>
 4. Visualization of correlations<br>
