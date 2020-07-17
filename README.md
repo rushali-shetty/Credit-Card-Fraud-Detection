@@ -28,30 +28,33 @@ import warnings
 warnings.filterwarnings('ignore')
 ```
 **Load Data:**<br>
-The dataset used in this project is available [here](https://www.kaggle.com/mlg-ulb/creditcardfraud/data).
+The dataset used in this project is available [here](https://www.kaggle.com/mlg-ulb/creditcardfraud/data).<br>
 ```ruby
 data = pd.read_csv('creditcard.csv')
 data.head()
 ```
-Inorder to check number of rows and columns in our dataset
+Inorder to check number of rows and columns in our dataset.<br>
 ```ruby
 print(data.shape[0],data.shape[1])
 ```
-To display the columns<br>
+To display number of rows and columns present in our dataset.<br>
 ```ruby
 print(data.shape[0],data.shape[1])
 ```  
+The **info()** function is used to print a concise summary of a DataFrame.<br>
 ```ruby
 data.info()
 ``` 
+To check for any **'NaN'** values in a given dataset.<br>
 ```ruby
 data.isnull().sum().max()
 ```
-Determine the number of fradulent cases in dataset<br>
+Determine the number of fradulent and non-fraudulent cases in dataset<br>
 ```ruby
 print('Normal Transactions count:',data['Class'].value_counts().values[0])
 print('Fraudulent Transactions count:',data['Class'].value_counts().values[1])
 ```
+Determine the percentage of fradulent and non-fraudulent cases in dataset<br>
 ```ruby
 print('Normal transactions are',(data['Class'].value_counts().values[0]/data.shape[0])*100,'% of the dataset')
 print('Fraudulent transactions are',(data['Class'].value_counts().values[1]/data.shape[0])*100,'% of the dataset')
