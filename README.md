@@ -70,14 +70,15 @@ sns.distplot(time_val, ax=ax[1], color='b')
 ax[1].set_title('Distribution of Transaction Time', fontsize=14)
 ax[1].set_xlim([min(time_val), max(time_val)])
 ```
-<img src="IMAGES/a2.png" width="500" height="300"><br>
-<img src="IMAGES/a3.png" width="500" height="300"><br>
+<img src="IMAGES/a2.png" width="900" height="300"><br>
+
 ### Visualization of Amount and Time by class<br>
 ```ruby
 sns.set_style("whitegrid")
 sns.FacetGrid(data, hue="Class", size = 6).map(plt.scatter, "Time", "Amount").add_legend()
 plt.show()
 ```
+<img src="IMAGES/a4.png" width="900" height="300"><br>
 From the above graphs,we can conclude that the fraud transactions are evenly distributed throughout time<br>
 ### Get sense of the fraud and normal transaction amount<br>
 ```ruby
@@ -132,6 +133,7 @@ LABELS=['Normal','Fraud']
 plt.xticks(range(2),LABELS)
 plt.xlabel('Class')
 ```
+<img src="IMAGES/a5.png" width="900" height="300"><br>
 Correlation matrix is used to check strong corellation between different variables in our dataset which helps us to determine strong linear relationships and also tells us which features are important for overall classification.<br>
 ```ruby
 corrmat=data.corr()
@@ -140,16 +142,10 @@ sns.heatmap(corrmat,vmax=0.8,square=True)
 plt.title('Heatmap of Correlation')
 plt.show()
 ```
+<img src="IMAGES/a6.png" width="900" height="300"><br>
 From the above graph,we have a lot of values very close to 0.There is no strong relationship between most of the v parameters(i.e from v1 to v28).there is variation in relationship between different parameters with the class.The lighter ones have the positive correlation whereas the darker ones have negative correlation.Thus, we can conclude that V10,V12,V14 and V17 are highly negatively correlated to class and V2,V4,V11 and V19 are highly positively correalted to class.<br>
 # Data Cleansing<br>
 We have identified the input features and the target variable so we will separate them into two objects ‘X’ and ‘y’ and draw the histogram of all the input features to see the data at a glance. The target variable which we would like to predict, is the 'Class' variable.<br>
-```ruby
-corrmat=data.corr()
-fig=plt.figure(figsize=(12,9))
-sns.heatmap(corrmat,vmax=0.8,square=True)
-plt.title('Heatmap of Correlation')
-plt.show()
-```
 ### Define X and y variables<br>
 ```ruby
 x = data.loc[:, data.columns != 'Class']
@@ -162,6 +158,7 @@ print(y.shape)
 x.hist(figsize = (20, 20))
 plt.show()
 ```
+<img src="IMAGES/a7.png" width="900" height="300"><br>
 ## BoxPlots<br>
 We will use boxplots to have a better understanding of the distribution of these features in fradulent and non fradulent transactions.<br>
 ### Visualization of correlations using boxplot<br>
@@ -173,6 +170,7 @@ sns.boxplot(x='Class',y='V12',data=new_df,ax=ax[0,1])
 sns.boxplot(x='Class',y='V14',data=new_df,ax=ax[1,0])
 sns.boxplot(x='Class',y='V17',data=new_df,ax=ax[1,1])
 ```
+<img src="IMAGES/a8.png" width="900" height="300"><br>
 ```ruby
 f,ax=plt.subplots(2,2,figsize=(24,14))
 f.suptitle('Features with high positive correlation',size=20)
@@ -181,6 +179,7 @@ sns.boxplot(x='Class',y='V4',data=new_df,ax=ax[0,1])
 sns.boxplot(x='Class',y='V11',data=new_df,ax=ax[1,0])
 sns.boxplot(x='Class',y='V19',data=new_df,ax=ax[1,1])
 ```
+<img src="IMAGES/a9.png" width="900" height="300"><br>
 Remove the extreme outliers from features that have a high correlation with our classes.<br>
 ```ruby
 v14_fraud = new_df['V14'].loc[new_df['Class'] == 1].values
