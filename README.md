@@ -54,8 +54,7 @@ plt.xticks(range(2),LABELS)
 plt.xlabel('Class')
 plt.ylabel('Frequency')
 ```
-<img src="IMAGES/a1.png" width="500" height="300">
-<br>
+<img src="IMAGES/a1.png" width="500" height="300"><br>
 ### Visualization of Amount and Time Distribution<br>
 ```ruby
 fig, ax = plt.subplots(1, 2, figsize=(18,4))
@@ -71,8 +70,8 @@ sns.distplot(time_val, ax=ax[1], color='b')
 ax[1].set_title('Distribution of Transaction Time', fontsize=14)
 ax[1].set_xlim([min(time_val), max(time_val)])
 ```
-<img src="IMAGES/a2.png" width="500" height="300">
-<img src="IMAGES/a3.png" width="500" height="300">
+<img src="IMAGES/a2.png" width="500" height="300"><br>
+<img src="IMAGES/a3.png" width="500" height="300"><br>
 ### Visualization of Amount and Time by class<br>
 ```ruby
 sns.set_style("whitegrid")
