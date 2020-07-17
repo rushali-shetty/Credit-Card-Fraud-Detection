@@ -162,7 +162,7 @@ plt.title('Heatmap of Correlation')
 plt.show()
 ```
 <img src="IMAGES/a6.png" width="800" height="500"><br>
-From the above graph,we have a lot of values very close to 0.There is no strong relationship between most of the v parameters(i.e from v1 to v28).there is variation in relationship between different parameters with the class.The lighter ones have the positive correlation whereas the darker ones have negative correlation.Thus, we can conclude that V10,V12,V14 and V17 are highly negatively correlated to class and V2,V4,V11 and V19 are highly positively correalted to class.<br>
+From the above graph,we have majority values very close to 0.There is no strong relationship between most of the 'V' parameters(i.e from V1 to V28).There is a variation in relationship between different parameters with that of 'Class'.The lighter ones have the positive correlation whereas the darker ones have negative correlation.Thus, we can conclude that V10,V12,V14 and V17 are highly negatively correlated to class and V2,V4,V11 and V19 are highly positively correalted to class.<br>
 ## Data Cleansing<br>
 We have identified the input features and the target variable so we will separate them into two objects ‘x’ and ‘y’ and draw the histogram of all the input features to see the data at a glance. The target variable which we would like to predict, is the 'Class' variable.<br>
 ### Define x and y variables<br>
@@ -227,8 +227,7 @@ v10_lower, v10_upper = q25 - v10_cut_off, q75 + v10_cut_off
 
 new_df = new_df.drop(new_df[(new_df['V10'] > v10_upper) | (new_df['V10'] < v10_lower)].index)
 ```
-**Classifier**<br>
- is a systematic approach to building classification models from an input data set. Examples include decision tree classifiers, rule-based classifiers, neural networks, support vector machines, and naive Bayes classifiers.It is a type of supervised learning.<br>
+**Classifier** is a systematic approach to building classification models from an input data set. Examples include decision tree classifiers, rule-based classifiers, neural networks, support vector machines, and naive Bayes classifiers.It is a type of supervised learning.<br>
 ```ruby
 X=new_df.drop('Class',axis=1) 
 y=new_df['Class']
