@@ -228,12 +228,13 @@ v10_lower, v10_upper = q25 - v10_cut_off, q75 + v10_cut_off
 new_df = new_df.drop(new_df[(new_df['V10'] > v10_upper) | (new_df['V10'] < v10_lower)].index)
 ```
 **Classifier**<br>
-An algorithm that maps the input data to a specific category.Classification is a type of supervised learning. The training data is used to make sure the machine recognizes patterns in the data and the test data is used only to access performance of model.<br>
+ is a systematic approach to building classification models from an input data set. Examples include decision tree classifiers, rule-based classifiers, neural networks, support vector machines, and naive Bayes classifiers.It is a type of supervised learning.<br>
 ```ruby
 X=new_df.drop('Class',axis=1) 
 y=new_df['Class']
 ```
-Then we create the train and test sets by randomly splitting the data:<br>
+**Training data** is the main and most important data which helps machines to learn and make the predictions and the **Test data** is used to see how well the machine can predict new answers based on its training.<br>
+We create the train and test sets by randomly splitting the data:<br>
 ```ruby
 from sklearn.model_selection import train_test_split
 
