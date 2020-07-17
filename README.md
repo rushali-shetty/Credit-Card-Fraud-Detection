@@ -303,4 +303,4 @@ for i,v in models:
       print('Classification Report')
       print(classification_report(y_test,pred_test))
 ```
-**Conclusion:** The highest accuracy is obtained by using Logistic Regression(97%) and RandomForestClassifier(96%).
+**Final Report:** The highest accuracy is obtained by using Logistic Regression(96.8%) and RandomForestClassifier(96.3%).
