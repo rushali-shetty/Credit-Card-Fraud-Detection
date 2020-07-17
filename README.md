@@ -71,6 +71,7 @@ plt.xlabel('Class')
 plt.ylabel('Frequency')
 ```
 <img src="IMAGES/a1.png" width="500" height="300"><br>
+We can see that out of 284,807 transactions, 284,315 were labeled as normal (99.83%), and only 492 transactions were labeled as fraud (0.17%). Although it may seem small, each fraud transaction can represent a very significant expense.<br>
 ### Visualization of Amount and Time Distribution<br>
 ```ruby
 fig, ax = plt.subplots(1, 2, figsize=(18,4))
@@ -87,7 +88,7 @@ ax[1].set_title('Distribution of Transaction Time', fontsize=14)
 ax[1].set_xlim([min(time_val), max(time_val)])
 ```
 <img src="IMAGES/a2.png" width="900" height="300"><br>
-
+From the graph above,we will get an idea how skewed the features are distributed.<br>
 ### Visualization of Amount and Time by class<br>
 ```ruby
 sns.set_style("whitegrid")
@@ -106,6 +107,7 @@ fraud.Amount.describe()
 normal.Amount.describe()
 ```
 ## 3.Normalization of data
+**Normalization** is a scaling technique in which values are shifted and rescaled so that they end up ranging between 0 and 1. It is also known as **Min-Max scaling**.<br>
 Scaling is done to normalise the data within a particular range.<br>
 Since most of our data has already been scaled we should scale the columns that are left to scale (Amount and Time).<br>
 RobustScaler reduces the influence of outliers.<br>
@@ -128,7 +130,7 @@ data.drop(['scaled_amount', 'scaled_time'], axis=1, inplace=True)
 data.insert(0, 'scaled_amount', scaled_amount)
 data.insert(1, 'scaled_time', scaled_time)
 ```
-**Normalization** is a process by which we scale values to be between specified limits, usually -1 to 1 or 0 to 1. This process is important because our machine learning models are heavily affected by differences in number size. The major difference will cause massive inaccuracies in our model. Normalization helps us to eliminate these sources of error rather than having it propagate throughout our analysis.<br>
+Normalization process is important because our machine learning models are heavily affected by differences in number size. The major difference will cause massive inaccuracies in our model. Normalization helps us to eliminate these sources of error rather than having it propagate throughout our analysis.<br>
 ```ruby
 data = data.sample(frac=1)
 
